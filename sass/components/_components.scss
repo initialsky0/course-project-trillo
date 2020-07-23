@@ -11,6 +11,11 @@
    align-items: center;
    justify-content: center;
 
+   @include respond(phone-s) {
+      order: 1;
+      flex: 0 0 95%;
+   }
+
    &__input {
       font-family: inherit;
       font-size: inherit;
@@ -109,12 +114,21 @@
    font-size: 1.4rem;
    list-style: none;
    margin-top: 3.5rem;
+   
+   @include respond(tab-port) { 
+      display: flex; 
+      margin: 0;
+   }
 
    &__item {
       position: relative;
 
+      @include respond(tab-port) { flex: 1 }
+
       &:not(:last-child) {
          margin-bottom: .5rem;
+
+         @include respond(tab-port) {  margin-bottom: 0;}
       }
    }
 
@@ -154,6 +168,15 @@
       position: relative;
       // require position for z-index to work
       z-index: 10;
+      @include respond(tab-port) {
+         justify-content: center;
+         padding: 2rem;
+      }
+
+      @include respond(phone) {
+         flex-direction: column;
+         padding: 1.5rem .5rem;
+      }
    }
 
    &__icon {
@@ -161,6 +184,14 @@
       height: 1.75rem;
       margin-right: 2rem;
       fill: currentColor;
+      
+      @include respond(tab-port) { margin-right: 1rem; }
+      @include respond(phone) { 
+         margin-right: 0;
+         margin-bottom: .7rem;
+         width: 1.5rem;
+         height: 1.5rem;
+      }
    }
 }
 
@@ -170,6 +201,10 @@
    color: var(--color-gray-light-4);
    text-align: center;
    padding: 2.5rem;
+
+   @include respond(tab-port) {
+      display: none;
+   }
 }
 
 /// Gallery ///
@@ -195,6 +230,11 @@
       text-transform: uppercase;
       letter-spacing: .1rem;
       padding: 1.5rem 3rem;
+
+      @include respond(phone) {
+         font-size: 1.8rem;
+         padding: 1.25rem 2rem;
+      }
    }
 
    &__stars {
@@ -229,17 +269,22 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
+      @include respond(phone) { padding: 0 1.5rem; }
    }
 
    &__rating-average {
       font-size: 2.25rem;
       font-weight: 300;
       margin-bottom: -.3rem;
+
+      @include respond(phone) { font-size: 1.8rem; }
    }
 
    &__rating-count {
       font-size: .8rem;
       text-transform: uppercase;
+      @include respond(phone) { font-size: .5rem; }
    }
 }
 
@@ -255,8 +300,17 @@
    cursor: pointer;
    transition: all .2s;
 
+   & span {
+      margin-left: .3rem;
+      transition: margin-left .3s;
+   }
+
    &:hover {
       color: var(--color-gray-dark-1);
+
+      span {
+         margin-left: .8rem;
+      }
    }
 
    &:focus {
@@ -306,10 +360,8 @@
       width: 1rem;
       margin-right: .7rem;
       // // older browser
-      @supports (not (-webkit-mask-image: url())) and (not (-webkit-mask-size: cover)) {
-         background-image: url(../img/chevron-thin-right.svg);
-         background-size: cover;
-      }
+      background-image: url(../img/chevron-thin-right.svg);
+      background-size: cover;
       
       // newer approach -masks -> like clipping, make the image transparent
       @supports ((-webkit-mask-image: url()) or (mask-image: url())) and 
@@ -319,6 +371,7 @@
          mask-image: url(../img/chevron-thin-right.svg);
          -webkit-mask-size: cover;
          mask-size: cover;
+         background-image: none;
       }
    }
 }
@@ -334,9 +387,9 @@
       margin-right: auto;
    }
 
-   // &__friends {
-
-   // }
+   &__friends {
+      display: flex;
+   }
 
    &__photos {
       box-sizing: content-box;
@@ -346,7 +399,138 @@
       border: .3rem solid var(--color-white);
       
       &:not(:last-child) {
-         margin-right: -1.5rem;
+         margin-right: -2rem;
       }
+   }
+}
+
+/// Reviews ///
+
+.review {
+   background-color: var(--color-white);
+   box-shadow: var(--shadow-light-1);
+   padding: 3rem;
+   margin-bottom: 3.5rem;
+   position: relative;
+   overflow: hidden;
+
+   @include respond(tab-port) { 
+      padding: 2rem;
+      margin-bottom: 3rem;
+   }
+
+   &__text {
+      position: relative;
+      margin-bottom: 2rem;
+      z-index: 10;
+   }
+
+   &__user {
+      display: flex;
+      align-items: center;
+   }
+
+   &__photo {
+      height: 4.5rem;
+      width: 4.5rem;
+      border-radius: 50%;
+   }
+
+   &__user-box {
+      margin-left: 1.5rem;
+   }
+
+   &__username {
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+   }
+
+   &__userdate {
+      font-size: 1rem;
+      color: var(--color-gray-dark-3);
+   }
+
+   &__rating {
+      margin-left: auto;
+      color: var(--color-primary);
+      font-size: 2.2rem;
+      font-weight: 300;
+   }
+
+   &::before {
+      content: "\201C";
+      position: absolute;
+      top: -2.75rem;
+      left: -1rem;
+      font-size: 20rem;
+      line-height: 1;
+      color: var(--color-gray-light-2);
+      font-family: sans-serif;
+   }
+}
+
+/// Call to action ///
+.cta {
+   padding: 3.5rem 0;
+   text-align: center;
+
+   @include respond(tab-port) { padding: 2.5rem 0; }
+
+   &__book-now {
+      text-transform: uppercase;
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      
+      @include respond(phone) { font-size: 1.6rem; }
+   }
+}
+
+/// CTA botton ///
+.btn {
+   font-size: 1.5rem;
+   font-weight: 300;
+   text-transform: uppercase;
+   border-radius: 10rem;
+   border: none;
+   background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+   color: var(--color-white);
+   position: relative;
+   overflow: hidden;
+   cursor: pointer;
+
+   & > * {
+      display: inline-block;
+      transition: all .2s;
+      height: 100%;
+      width: 100%;
+   }
+
+   &__visible { padding: 2rem 7.5rem; }
+
+   &__invisible {
+      position: absolute;
+      padding: 2rem 0;
+      top: -100%;
+      left: 0;
+   }
+
+   &:hover { 
+      background-image: linear-gradient(
+         to left, 
+         var(--color-primary-light), 
+         var(--color-primary-dark)
+         ); 
+   }
+
+   &:hover &__visible { transform: translateY(100%); }
+
+   &:hover &__invisible { top: 0; }
+
+   &:focus {
+      outline: none;
+      animation: pulse 1s infinite;
    }
 }

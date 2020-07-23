@@ -5,6 +5,12 @@
    box-shadow: var(--shadow-dark-1);
 
    min-height: 50rem;
+
+   @include respond(tab-land) { 
+      margin: 0; 
+      max-width: 100%;
+      width: 100%;
+   }
 }
 
 .header {
@@ -17,10 +23,17 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
+
+   @include respond(phone-s) { 
+      flex-wrap: wrap;
+      align-content: space-around;
+      height: 10rem;
+   }
 }
 
 .content {
    display: flex;
+   @include respond(tab-port) { flex-direction: column; }
 }
 
 .sidebar {
@@ -44,7 +57,10 @@
    padding: 4.5rem;
    background-color: var(--color-gray-light-1);
    border-bottom: var(--border-solid-bottom);
+   font-size: 1.4rem;
 
+   @include respond(tab-port) { padding: 3rem; }
+   @include respond(phone) { flex-direction: column; }
 }
 
 .description {
@@ -53,11 +69,23 @@
    background-color: var(--color-white);
    box-shadow: var(--shadow-light-1);
    padding: 3rem;
-   font-size: 1.4rem;
+
+   @include respond(tab-port) {
+      padding: 2rem;
+      margin-right: 3rem;
+   }
+
+   @include respond(phone) {
+      margin-right: 0;
+      margin-bottom: 3rem;
+   }
 }
 
 .user-reviews {
-   flex: 1
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 
 .paragraph:not(:last-of-type) {
