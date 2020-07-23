@@ -1,0 +1,87 @@
+//Media Query Manager
+
+/*
+
+   0    - 600px:    Phone
+   600  - 900px:    Tablet Portrait
+   900  - 1200px:   Tablet landscape
+   1200 - 1800px:   is where our normal styles apply
+   1800px + :       Big Desktop
+
+*/
+
+// sample media query mixin ->  not final
+
+//    @mixin respond-phone {
+//    @media(max-width: 600px) { @content };
+// } 
+
+
+/* 
+   $breakpoint argument choices:
+   - phone
+   - tab-port
+   - tab-land
+   - big-desktop
+
+   1em = 16px
+*/
+// Recommended order Base + typography -> general layout + grid -> page layout -> components
+@mixin respond($breakpoint) {
+   @if $breakpoint == phone-s {
+      // 500px
+      @media only screen and (max-width: 31.25em) { @content };
+   }
+
+   @if $breakpoint == phone {
+      // 600px
+      @media only screen and (max-width: 37.5em) { @content };
+   }
+
+   @if $breakpoint == tab-port {
+      // 900px
+      @media only screen and (max-width: 56.25em) { @content };
+   }
+
+   @if $breakpoint == tab-land-s {
+      // 1100px
+      @media only screen and (max-width: 68.75em) { @content };
+   }
+
+   @if $breakpoint == tab-land {
+      // 1200px
+      @media only screen and (max-width: 75em) { @content };
+   }
+
+   @if $breakpoint == big-desktop {
+      // 1800px
+      @media only screen and (min-width: 112.5em) { @content };
+   }
+}
+
+// media query for touch device
+// @mixin respond-touch($breakpoint) {
+//    @if $breakpoint == phone {
+//       // 600px
+//       @media only screen and (max-width: 37.5em),
+//          only screen and (hover: none) { @content };
+//    }
+
+//    @if $breakpoint == tab-port {
+//       // 900px
+//       @media only screen and (max-width: 56.25em),
+//          only screen and (hover: none) { @content };
+//    }
+
+//    @if $breakpoint == tab-land {
+//       // 1200px
+//       @media only screen and (max-width: 75em),
+//          only screen and (hover: none) { @content };
+//    }
+
+//    @if $breakpoint == big-desktop {
+//       // 1800px
+//       @media only screen and (min-width: 112.5em),
+//          only screen and (hover: none) { @content };
+//    }
+// }
